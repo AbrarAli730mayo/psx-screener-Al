@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon-192.png" type="image/png">
+  <title>PSX Screener - Never Miss a Market Move</title>
+  <script defer src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js').then(reg => {
+          console.log('Service worker registered.', reg);
+        });
+      });
+    }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-900 text-gray-100 font-sans min-h-screen">
+  <header class="bg-gray-800 border-b border-teal-500 p-4 flex justify-between items-center shadow">
+    <h1 class="text-2xl font-bold tracking-tight text-teal-400">📊 PSX Screener</h1>
+    <button onclick="refreshData()" class="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600 transition">🔄 Refresh</button>
+  </header>
+
+  <main class="p-6 max-w-6xl mx-auto">
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">🎯 Filter Stocks</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 bg-gray-800 p-6 rounded-xl shadow">
+        <div>
+          <label class="block mb-2">RSI Level</label>
+          <input type="range" min="0" max="100" value="50" id="rsiRange" class="w-full accent-teal-500" />
+        </div>
+        <div>
+          <label class="block mb-2">EMA Crossover</label>
+          <select id="emaSelector" class="w-full p-2 rounded bg-gray-700 text-white">
+            <option value="ema5-ema20">EMA 5/20</option>
+            <option value="ema10-ema50">EMA 10/50</option>
+          </select>
+        </div>
+        <div>
+          <label class="block mb-2">Max P/E Ratio</label>
+          <input type="number" id="peRatio" class="w-full p-2 rounded bg-gray-700 text-white" />
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">📋 Stock Results</h2>
+      <div id="results" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <!-- Stocks will appear here -->
+      </div>
+    </section>
+
+    <section class="mb-8 text-center">
+      <h2 class="text-xl font-semibold mb-4">💾 Save or Export</h2>
+      <button onclick="saveFilter()" class="bg-teal-500 text-white px-6 py-2 rounded shadow hover:bg-teal-600 transition">Save Filter</button>
+      <button onclick="exportCSV()" class="bg-gray-700 text-white border border-teal-500 px-6 py-2 ml-4 rounded shadow hover:bg-teal-600 transition">Export CSV</button>
+    </section>
+  </main>
+
+  <footer class="bg-gray-800 border-t border-teal-500 text-center p-4 text-sm text-gray-400">
+    Made with ❤️ by Urdu AI | Tagline: Never Miss a Market Move
+  </footer>
+</body>
+
+</html>
